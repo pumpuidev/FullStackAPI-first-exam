@@ -6,6 +6,7 @@
  */
 const get = (list = [], id = 0) => {
     //
+    return list.find( item => item.id === id );
 };
 
 /**
@@ -16,6 +17,10 @@ const get = (list = [], id = 0) => {
  */
 const create = (list = [], entity = null) => {
     //
+    const id = list[list.length - 1].id + 1;
+    const createUser = {...entity, id};
+    list.push( createUser );
+    return createUser;
 };
 
 /**
@@ -26,6 +31,10 @@ const create = (list = [], entity = null) => {
  */
 const update = (list = [], entity = {}) => {
     //
+    if (list.length < 1 || !entity.id) return false;
+    const index = list.findIndex( item => item.id === entity.id );
+    list[index] = {...list[index], ...entity};
+    return list[index];
 };
 
 /**
@@ -36,8 +45,18 @@ const update = (list = [], entity = {}) => {
  */
 const remove = (list = [], id = 0) => {
     //
+    if (list.length < 1 || !id) return false;
+    const index = list.findIndex( item => item.id === id );
+    list.splice(index, 1);
+    return true;
 };
 
 /**
  * 5. Exportáld ki a négy függvényt, hogy más fájlokból is elérhetőek legyenek.
  */
+module.exports = {
+    get,
+    create,
+    update,
+    remove
+};
