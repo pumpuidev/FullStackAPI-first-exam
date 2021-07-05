@@ -5,7 +5,7 @@
  * @returns a tömbnek az az eleme, amelynek az id -je megegyezik a kapottal
  */
 const get = (list = [], id = 0) => {
-    //
+    // trivial
     return list.find( item => item.id === id );
 };
 
@@ -16,9 +16,11 @@ const get = (list = [], id = 0) => {
  * @returns a létrehozott, beszúrt és id -vel ellátott objektum
  */
 const create = (list = [], entity = null) => {
-    //
+    // catching the index of the id enumerated from zero
     const id = list[list.length - 1].id + 1;
+    // using spread operator
     const createUser = {...entity, id};
+    // pushing element to the list
     list.push( createUser );
     return createUser;
 };
@@ -30,9 +32,11 @@ const create = (list = [], entity = null) => {
  * @returns a frissített objektum ha sikerült a frissítés, egyébként false
  */
 const update = (list = [], entity = {}) => {
-    //
+    // throwing exceptions
     if (list.length < 1 || !entity.id) return false;
+    // catching the first expected id
     const index = list.findIndex( item => item.id === entity.id );
+    // using spread operator to expand
     list[index] = {...list[index], ...entity};
     return list[index];
 };
@@ -44,9 +48,11 @@ const update = (list = [], entity = {}) => {
  * @returns true ha sikeres volt a törlés, egyébként false
  */
 const remove = (list = [], id = 0) => {
-    //
+    // throwing exceptions
     if (list.length < 1 || !id) return false;
+    // catching the first expected id
     const index = list.findIndex( item => item.id === id );
+    // changes the contents of an array by removing elements
     list.splice(index, 1);
     return true;
 };

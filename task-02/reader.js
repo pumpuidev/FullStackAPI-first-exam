@@ -16,8 +16,9 @@ const jsonPath = join(__dirname, 'db', 'users.json');
  * @returns objektumok tömbje
  */
  const getList = async () => {
-     //
+     // reading the file as a text
      const text = await fsp.readFile(jsonPath, 'utf8');
+     // parsing string to array
      return JSON.parse(text);
 };
 
@@ -30,8 +31,9 @@ const jsonPath = join(__dirname, 'db', 'users.json');
  * @returns a tömbnek az az eleme, amelynek az id -je megegyezik a kapottal
  */
 const get = async (id = 0) => {
-    //
+    // using getList method
     const list = await getList();
+    // searching the expected id-s
     return list.find( item => item.id === id );
 };
 

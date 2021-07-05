@@ -16,8 +16,9 @@ const { join } = require('path');
   * @returns objektumok tömbje
   */
  const getList = async () => {
-     //
+    // reading products.json as string
     const text = await fsp.readFile(jsonPath, 'utf8');
+    // parsing string to array
     return JSON.parse(text);
  };
 
@@ -28,7 +29,7 @@ const { join } = require('path');
  * @returns 
  */
 const saveList = async (list = []) => {
-    //
+    // transforming array to string
     await fsp.writeFile(jsonPath, JSON.stringify(list, null, 4), 'utf8');
     return true;
 };
@@ -41,10 +42,13 @@ const saveList = async (list = []) => {
  * @returns a frissített objektum ha sikerült a frissítés, egyébként false
  */
 const update = async (entity = {}) => {
-    //
+    // using getlist method
     const list = await getList();
+    // catching the first result of expected index
     const index = list.findIndex( item => item.id === entity.id );
+    // using spread operator to expand in places
     list[index] = {...list[index], ...entity};
+    // calling saveList method to list
     await saveList(list);
     return list[index];
 };
